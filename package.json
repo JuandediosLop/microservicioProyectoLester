@@ -1,15 +1,20 @@
 {
-  "name": "practica",
+  "name": "microservicio",
   "version": "1.0.0",
-  "description": "esta es mi primera practica de microservicios",
+  "description": "Microservicio para libreria",
   "main": "index.js",
   "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "victor",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
     "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
   }
 }

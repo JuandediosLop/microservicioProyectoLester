@@ -1,11 +1,11 @@
-const mysql= require('mysql');
+const mysql = require('mysql');
 /* poll de conexiones */
 
-const pool= mysql.createPool({
-host: 'localhost',
-user:'root',
-password:'admin',
-database:'proyectouvg'
+const pool = mysql.createPool({
+    host: 'localhost',
+    user: 'jdlopez',
+    password: 'admin',
+    database: 'libreria'
 });
 
-exports.pool= pool;
+exports.pool = pool;
