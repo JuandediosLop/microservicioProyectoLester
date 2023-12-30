@@ -44,6 +44,7 @@ const appRouter = function (app) {
     //PRODUCTOS ------------------------------
     .get('/productos/consultarProducto/:id_producto', gestionProductos.consultarProductoId)
     .get('/productos/consultarProductopd', gestionProductos.consultarProductopd)
+    .get('/productos/consultarTipoProducto/:tipo_producto', gestionProductos.consultarTipoProducto)
     .post('/productos/registrarProducto', gestionProductos.registrarProducto)
     .patch('/productos/actualizarProducto/:id_producto', gestionProductos.actualizarProducto)
     .patch('/productos/eliminarProducto/:id_producto', gestionProductos.eliminarProducto)

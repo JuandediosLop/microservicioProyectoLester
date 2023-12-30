@@ -90,6 +90,7 @@ CREATE TABLE `producto` (
   `id_sucursal` int NOT NULL,
   `id_proveedor` int NOT NULL,
   `id_estado` int NOT NULL,
+  `tipo_producto` varchar(15) NOT NULL,
   PRIMARY KEY (`id_producto`),
   KEY `producto_proveedor_FK` (`id_proveedor`),
   KEY `producto_estado_FK` (`id_estado`),

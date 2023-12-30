@@ -8,7 +8,24 @@ var conexion = require('../utils/conexion').pool;
  */
 exports.consultarProductoId = (request, response) => {
     var id_producto = request.params.id_producto;
-    conexion.query('select id_producto, nombre, descripcion, existencias, precio_costo, precio_venta, id_sucursal, id_proveedor, id_estado from libreria.producto where id_producto = ?', id_producto, (error, result) => {
+    conexion.query('select id_producto, nombre, descripcion, existencias, precio_costo, precio_venta, id_sucursal, id_proveedor, id_estado, tipo_producto from libreria.producto where id_producto = ?', id_producto, (error, result) => {
+        if (error) {
+            response.status(500).send({ error: 'Error al consultar el producto', details: error });
+        } else {
+            //verificar que no venga vacio
+            if ((Array.isArray(result) && result.length === 0) || (typeof result === 'object' && Object.keys(result).length === 0)) {
+                response.status(404).send({ message: 'Producto no encontrado' });
+            } else {
+                response.send({ message: 'Producto consultado correctamente', result });
+            }
+
+        }
+    });
+};
+
+exports.consultarTipoProducto = (request, response) => {
+    var tipo_producto = request.params.tipo_producto;
+    conexion.query('select id_producto, nombre, descripcion, existencias, precio_costo, precio_venta, id_sucursal, id_proveedor, id_estado, tipo_producto from libreria.producto where tipo_producto = ?', tipo_producto, (error, result) => {
         if (error) {
             response.status(500).send({ error: 'Error al consultar el producto', details: error });
         } else {
@@ -54,8 +71,9 @@ exports.registrarProducto = (request, response) => {
     let id_sucursal = request.body.id_sucursal;
     let id_proveedor = request.body.id_proveedor;
     let id_estado = request.body.id_estado;
+    let tipo_producto = request.body.tipo_producto;
 
-    conexion.query('insert into libreria.producto (nombre, descripcion, existencias, precio_costo, precio_venta, id_sucursal, id_proveedor, id_estado) values (?,?,?,?,?,?,?,?)', [nombre, descripcion, existencias, precio_costo, precio_venta, id_sucursal, id_proveedor, id_estado], (error, result) => {
+    conexion.query('insert into libreria.producto (nombre, descripcion, existencias, precio_costo, precio_venta, id_sucursal, id_proveedor, id_estado, tipo_producto) values (?,?,?,?,?,?,?,?,?)', [nombre, descripcion, existencias, precio_costo, precio_venta, id_sucursal, id_proveedor, id_estado, tipo_producto], (error, result) => {
         if (error) {
             response.status(500).send({ error: 'Error al registrar el producto', details: error });
 
@@ -82,8 +100,9 @@ exports.actualizarProducto = (request, response) => {
     let id_sucursal = request.body.id_sucursal;
     let id_proveedor = request.body.id_proveedor;
     let id_estado = request.body.id_estado;
+    let tipo_producto = request.body.tipo_producto;
 
-    conexion.query('UPDATE libreria.producto SET nombre = ?, descripcion = ?, existencias = ?, precio_costo = ?, precio_venta = ?, id_sucursal = ?, id_proveedor = ?, id_estado = ? where id_producto = ? ', [nombre, descripcion, existencias, precio_costo, precio_venta, id_sucursal, id_proveedor, id_estado, id_producto], (error, result) => {
+    conexion.query('UPDATE libreria.producto SET nombre = ?, descripcion = ?, existencias = ?, precio_costo = ?, precio_venta = ?, id_sucursal = ?, id_proveedor = ?, id_estado = ?, tipo_producto =? where id_producto = ? ', [nombre, descripcion, existencias, precio_costo, precio_venta, id_sucursal, id_proveedor, id_estado, tipo_producto, id_producto], (error, result) => {
         if (error) {
             response.status(500).send({ error: 'Error al actualizar el producto', details: error });
         }
